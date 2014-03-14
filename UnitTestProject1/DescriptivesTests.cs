@@ -62,5 +62,14 @@ namespace SugarCubeSWN.Tests
             s.AddSample(3, 2);
             Assert.IsTrue(System.Math.Abs(s.Mean() - 2) < 1e-12);
         }
+
+        [TestMethod()]
+        public void StdDevTest()
+        {
+            var s = new Descriptives();
+            s.AddSample(0);
+            s.AddSample(2);
+            Assert.IsTrue(Math.Abs(s.StdDev()-Math.Sqrt(2)) < 1e-12);
+        }
     }
 }

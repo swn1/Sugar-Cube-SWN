@@ -24,6 +24,7 @@ namespace SugarCubeSWN
         private void ReportStats(Descriptives s)
         {
             AverageField.Text = s.Mean().ToString();
+            StdDevField.Text = s.StdDev().ToString();
         }
 
         private void StartButton_Click(object sender, EventArgs e)
@@ -44,6 +45,7 @@ namespace SugarCubeSWN
                 }
             );
             AverageField.Text = "";
+            StdDevField.Text = "";
             StartButton.Enabled = false;
             // StopButton.Enabled = true; Stop not yet implemented so don't enable yet.
             

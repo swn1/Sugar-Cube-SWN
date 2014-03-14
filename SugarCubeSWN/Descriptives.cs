@@ -17,6 +17,7 @@ namespace SugarCubeSWN
         double m_Max = Double.NegativeInfinity;
         double m_Mass = 0;
         double m_Mean = Double.NaN; // provisional mean
+        double m_M2j = 0; // sum of squared deviates, so far.
 
         public void AddSample(double xi, int wi = 1)
         {
@@ -31,7 +32,9 @@ namespace SugarCubeSWN
             m_Mass += wi;
             // Spicer 1972
             double vj = (xi - m_Mean) * wi / m_Mass;
+            double u0 = m_Mean;
             m_Mean = m_Mean + vj;
+            m_M2j = m_M2j + wi*(xi - u0)*(xi - m_Mean); // BMDP
         }
 
         public double Mass()
@@ -52,6 +55,13 @@ namespace SugarCubeSWN
         public double Mean()
         {
             return m_Mean;
+        }
+
+        public double StdDev()
+        {
+            if (m_Mass > 1)
+                return Math.Sqrt(m_M2j / (m_Mass - 1));
+            return Double.NaN;
         }
     }
 }

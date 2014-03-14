@@ -38,6 +38,8 @@
             this.StopButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.AverageField = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.StdDevField = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -119,20 +121,40 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "Average time (mean of means)";
             // 
-            // label5
+            // AverageField
             // 
             this.AverageField.AutoSize = true;
             this.AverageField.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AverageField.Location = new System.Drawing.Point(216, 192);
-            this.AverageField.Name = "label5";
+            this.AverageField.Name = "AverageField";
             this.AverageField.Size = new System.Drawing.Size(0, 25);
             this.AverageField.TabIndex = 9;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(492, 161);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(180, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Standard Deviation of sample means";
+            // 
+            // label6
+            // 
+            this.StdDevField.AutoSize = true;
+            this.StdDevField.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StdDevField.Location = new System.Drawing.Point(542, 203);
+            this.StdDevField.Name = "label6";
+            this.StdDevField.Size = new System.Drawing.Size(0, 25);
+            this.StdDevField.TabIndex = 11;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(777, 594);
+            this.Controls.Add(this.StdDevField);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.AverageField);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.StopButton);
@@ -162,6 +184,8 @@
         private System.Windows.Forms.Button StopButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label AverageField;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label StdDevField;
     }
 }
 
