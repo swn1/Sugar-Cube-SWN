@@ -1,0 +1,81 @@
+1) The quantity we are seeking is the expected value of the number of time units
+the ant spends in the maze.
+
+2) Rank the vertices by distance from the starting point, then consider the Markov process
+defined by ranks with transition probabilities corresponding to the number of edges joining
+the vertices of each rank:
+P[->]	1		1		2/3		1/3		1
+source 		0		1		2		3		sink
+P[<-]	0		1/3		2/3		0		0
+
+3) Assume a steady-state flow of one ant per unit time into the network.  Then on average
+there must be three ants at rank 2, 4.5 at rank 1 and 2.5 at rank 0.
+
+4) The average number of ants wandering around the simplified steady-state model  is thus 10,
+which can be interpreted as the number of time units an average ant would spend in wandering the cube.
+
+5) The minimum time is clearly 3.  There is, almost as obviously, no maximum time;
+an ant may cycle endlessly between any pair of adjacent non-terminal vertices, for instance.
+The argument above shows that the expected value of dwell time is finite.  Is the variance
+also finite?  Rather than cracking a book I guess I’ll write a simulation and see what happens.
+
+6) Simulating the steady-state analoque and deriving complete dwell time statistics would require
+tracking individual ants through the network.  There’s no good reason to do that, we can just
+start with N ants at time zero and track the count at each node, with flow determined by the
+binomial distribution (for one direction, with the balance going the other way).  Then at each
+time step the number of ants entering rank 3 is the bin count for that time and we get a
+complete histogram if we choose to store it.
+
+7) I can imagine shoe-horning memoization or some other kind of “caching technique” into this
+but at this point I still haven’t thought of any way to do it that would make sense.
+
+8) Parallelizing this will be more trouble than it’s worth unless the PRNG is really slow.
+Repeating the whole simulation M times would provide some insulation against outliers in
+early population evolution and is an embarrassingly parallel problem, so that’s a reasonable
+way to tick off that requirement..
+
+9) Verification of my answer: I did a quick Google search to check my conjecture that a closed-form
+solution existed and found an unconvincing exposition that ended up with 10.  Unless my simulation
+fails to give an answer within experimental error of 10 I’m satisfied that both my analysis and the
+stranger’s are correct.
+
+10) Techniques for generating pseudo-random variates with from a binomial distribution with large n
+and moderate p are not pretty, as the exact formulas involve factorials.  A good library should
+transition transparently to approximations, can we find such a library in one of the required languages?
+Nothing that is both free and high quality shows up in C# in a quick search.  Getting a good underlying
+PRNG hooked up to a good binomial mapping in C++ looks like it would be a multi-day project.  [boost has one]
+
+11) For modest n, the recommended way to generate binomial random variates is to tabulate the
+exact cdf for B(n,p) and interpolate from U(0,1). There’s where our “caching technique” comes in, I guess?
+
+12) Here’s what looks like a high-quality C++ library: http://people.sc.fsu.edu/~jburkardt/cpp_src/ranlib/ranlib.html
+The page cites a 1988 CACM article describing the binomial generator, a good sign.
+
+12a) But I really don’t want to have to implement a GUI in C++.  Sigh.
+
+13) The specs say “simple UI”, not graphical.  Simple to program or simple to use?  Given the
+time constraint I’m tempted to go with the former but something with animation and start/stop
+buttons would be cool.
+
+14) The binomial generator in C# in
+http://www.codeproject.com/Articles/15102/NET-random-number-generators-and-distributions
+is based on a 1993 algorithm described in
+http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.47.8407 .  It has the earmarks of a
+production-quality open source artifact, adopted provisionally.  [note added later, I can no
+longer locate whatever evidence I thought I had for the above, the 1993 article is cited in the
+boost (C++) generator source but the C# generator article cites only Wikipedia.]
+
+15) Because the maximum lifetime is not finite we will need a stopping rule.  That means the data
+are censored, even if the rule never fires, if I understand the theory correctly.  Correcting for
+that effect would involve more heavy lifting than I want to do for this exercise:
+http://arxiv.org/abs/1203.5955 .  Discussed it with my colleague who was responsible for the
+survival analysis module, he’s not sure either but thinks it’s academic at best.  He’s probably
+right, he’s not prone to expressing opinions that aren’t well founded.
+
+16) OK, UI.  Looking at free eval packages for the enterprise dashboard market.  Promising:
+http://www.telerik.com/products/winforms/download.aspx .  But can I deploy the solution as
+an executable from the eval?  We’ll see.  Running out of time.
+
+17) Here’s an open source C# library that has thread-safe random number generators with
+distributions and statistical functions.  But not statistical accumulators.
+http://numerics.mathdotnet.com/docs/
