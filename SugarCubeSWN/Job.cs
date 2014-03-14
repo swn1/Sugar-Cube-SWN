@@ -33,32 +33,48 @@ namespace SugarCubeSWN
             m_RNG = new MathNet.Numerics.Random.MersenneTwister(); // clock-based default seed.
         }
 
-        public void Run()
+        /// <summary>
+        /// simulate one ant farm, return true (continue) unless max cube count has been reached
+        /// </summary>
+        private bool Run1()
         {
-            // non-parallel to start with, enhance after it works
-            for (int c = 0; c < m_nCubes; ++c)
+            var s = new Descriptives(); // departure time statistics for this cube
+            var cube = new Cube(m_nAnts, this);
+            for (int t = 0; t < m_nMaxTime; ++t)
             {
-                var s = new Descriptives(); // departure time statistics for this cube
-                var cube = new Cube(m_nAnts, this);
-                for (int t = 0; t < m_nMaxTime; ++t)
-                {
-                    int escaped = cube.Step();
-                    s.AddSample(t+1, escaped); // if escaped on step 0, it's at time 1.
-                    if (cube.Empty)
-                        break;
-                }
+                int escaped = cube.Step();
+                s.AddSample(t + 1, escaped); // if escaped on step 0, it's at time 1.
+                if (cube.Empty)
+                    break;
+            }
 
-                lock(m_summarystats)
+            double completed;
+            lock (m_summarystats)
+            {
+                completed = m_summarystats.Mass();
+                if (completed < m_nCubes)
                     m_summarystats.AddSample(s.Mean());
             }
 
-            if (m_OnCompletion != null)
+            if (completed+1 == m_nCubes && m_OnCompletion != null)
                 m_OnCompletion(m_summarystats);
+
+            return completed+1 < m_nCubes;
         }
 
-        public void Start()
+        public void Run()
         {
-            Run();
+            // non-parallel to start with, enhance after it works
+            while (Run1())
+                ;
+        }
+
+        private void Run(Object state) { Run(); }
+
+        public void Start(int nThreads = 1)
+        {
+            while (nThreads-- > 0)
+                System.Threading.ThreadPool.QueueUserWorkItem(Run);
         }
     }
 }

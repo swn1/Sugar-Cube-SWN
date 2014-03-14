@@ -16,7 +16,7 @@ namespace SugarCubeSWN
             InitializeComponent();
             StartButton.Enabled = true;
             StopButton.Enabled = false;
-            nCubesBox.Text = "10";
+            nCubesBox.Text = "50";
             nAntsBox.Text = "100000";
             nMaxTimeBox.Text = "200";
             nThreadsBox.Text = "2";
@@ -37,6 +37,7 @@ namespace SugarCubeSWN
             int nAnts = Int32.Parse(nAntsBox.Text);
             int nCubes = Int32.Parse(nCubesBox.Text);
             int nMaxTime = Int32.Parse(nMaxTimeBox.Text);
+            int nThreads = Int32.Parse(nThreadsBox.Text);
             // TODO: input validation and error reporting
 
             m_runningjob = new Job(nAnts, nCubes, nMaxTime);
@@ -47,7 +48,7 @@ namespace SugarCubeSWN
             // StopButton.Enabled = true; Stop not yet implemented so don't enable yet.
 
             timer1.Start();
-            m_runningjob.Start();
+            m_runningjob.Start(nThreads);
         }
 
         private Job m_runningjob;
