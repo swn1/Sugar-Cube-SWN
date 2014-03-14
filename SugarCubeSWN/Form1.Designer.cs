@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.nCubesBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,6 +41,11 @@
             this.AverageField = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.StdDevField = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label6 = new System.Windows.Forms.Label();
+            this.ProgressField = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.nThreadsBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -139,20 +145,64 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "Standard Deviation of sample means";
             // 
-            // label6
+            // StdDevField
             // 
             this.StdDevField.AutoSize = true;
             this.StdDevField.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StdDevField.Location = new System.Drawing.Point(542, 203);
-            this.StdDevField.Name = "label6";
+            this.StdDevField.Name = "StdDevField";
             this.StdDevField.Size = new System.Drawing.Size(0, 25);
             this.StdDevField.TabIndex = 11;
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(377, 65);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(48, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Progress";
+            // 
+            // ProgressField
+            // 
+            this.ProgressField.AutoSize = true;
+            this.ProgressField.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ProgressField.Location = new System.Drawing.Point(380, 94);
+            this.ProgressField.Name = "ProgressField";
+            this.ProgressField.Size = new System.Drawing.Size(0, 16);
+            this.ProgressField.TabIndex = 13;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(15, 94);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(46, 13);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Threads";
+            // 
+            // nThreadsBox
+            // 
+            this.nThreadsBox.Location = new System.Drawing.Point(174, 94);
+            this.nThreadsBox.Name = "nThreadsBox";
+            this.nThreadsBox.Size = new System.Drawing.Size(100, 20);
+            this.nThreadsBox.TabIndex = 15;
+            this.nThreadsBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(777, 594);
+            this.Controls.Add(this.nThreadsBox);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.ProgressField);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.StdDevField);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.AverageField);
@@ -186,6 +236,11 @@
         private System.Windows.Forms.Label AverageField;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label StdDevField;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label ProgressField;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox nThreadsBox;
     }
 }
 

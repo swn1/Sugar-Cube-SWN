@@ -13,7 +13,7 @@ namespace SugarCubeSWN
     public class Job
     {
         int m_nAnts;
-        int m_nCubes;
+        internal int m_nCubes;
         int m_nMaxTime;
         public delegate void StatsCallback(Descriptives s);
         StatsCallback m_OnCompletion; // will be called on the worker thread, is that OK?
@@ -21,7 +21,7 @@ namespace SugarCubeSWN
         internal Descriptives m_summarystats; // note AddSample isn't threadsafe.  collects mean-of-means.
         public System.Random m_RNG; // see http://numerics.mathdotnet.com/docs/Random.html
 
-        public Job(int nAnts, int nCubes, int nMaxTime, StatsCallback dOnCompletion)
+        public Job(int nAnts, int nCubes, int nMaxTime, StatsCallback dOnCompletion = null)
         {
             // I don't really like Hungarian notation but it's become a habit from sheer repetition.
             m_nAnts = nAnts;
@@ -48,12 +48,17 @@ namespace SugarCubeSWN
                         break;
                 }
 
-                // TODO: interlock when parallelized
-                m_summarystats.AddSample(s.Mean());
+                lock(m_summarystats)
+                    m_summarystats.AddSample(s.Mean());
             }
 
             if (m_OnCompletion != null)
                 m_OnCompletion(m_summarystats);
+        }
+
+        public void Start()
+        {
+            Run();
         }
     }
 }
