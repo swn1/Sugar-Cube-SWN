@@ -79,3 +79,4 @@ an executable from the eval?  We’ll see.  Running out of time.
 17) Here’s an open source C# library that has thread-safe random number generators with
 distributions and statistical functions.  But not statistical accumulators.
 http://numerics.mathdotnet.com/docs/
+
