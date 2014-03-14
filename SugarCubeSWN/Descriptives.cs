@@ -9,13 +9,14 @@ namespace SugarCubeSWN
     /// <summary>
     /// Simple statistical accumulator, supports repeated samples, min/max, mean,
     /// variance and standard deviation.  Does not support fork/join (parallel reduce) (yet).
+    /// actually, doesn't support variance yet.  add that after minimal functionality.
     /// </summary>
     public class Descriptives
     {
         double m_Min = Double.PositiveInfinity;
         double m_Max = Double.NegativeInfinity;
         double m_Mass = 0;
-        double m_Mean = 0; // provisional mean
+        double m_Mean = Double.NaN; // provisional mean
 
         public void AddSample(double xi, int wi = 1)
         {
