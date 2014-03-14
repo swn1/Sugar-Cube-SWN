@@ -16,9 +16,9 @@ namespace SugarCubeSWN
             InitializeComponent();
             StartButton.Enabled = true;
             StopButton.Enabled = false;
-            nCubesBox.Text = "1000";
-            nAntsBox.Text = "1000000";
-            nMaxTimeBox.Text = "1000";
+            nCubesBox.Text = "10";
+            nAntsBox.Text = "100000";
+            nMaxTimeBox.Text = "200";
         }
 
         private void ReportStats(Descriptives s)

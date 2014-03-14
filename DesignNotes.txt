@@ -96,3 +96,11 @@ thus to the expected time.
 
 21) Nope, the fault is I'm carrying the value of t across the cube.Step call.  Ants that
 reach the goal on step t arrive after t+1 seconds.  Fencepost error.  Much better.
+
+22) The performance seems to fall off with the number of ants more than anything else,
+a million is pretty slow, 10,000 is fast.  If I had more time I'd drill into the RNG
+implementation and fix that.  It should be using the Gaussian approximation at that scale.
+
+23) Playing with the time cutoff you can really see the effect of censoring on the estimate
+of the distribution mean, if you cut it off at 30 the mean drops to about 9 while maintaining
+modest estimator variance.  There's still a noticable bias at 100.
