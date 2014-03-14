@@ -42,7 +42,7 @@ namespace SugarCubeSWN
                 for (int t = 0; t < m_nMaxTime; ++t)
                 {
                     int escaped = cube.Step();
-                    s.AddSample(t, escaped);
+                    s.AddSample(t+1, escaped); // if escaped on step 0, it's at time 1.
                     if (cube.Empty)
                         break;
                 }

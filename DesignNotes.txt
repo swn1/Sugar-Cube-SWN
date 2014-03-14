@@ -93,3 +93,6 @@ obscured that fact.
 not 10, suggesting I have made a classic off-by-one error.  I think the fault is in the
 definition of duration; I added the external source node which added 1 to all times and
 thus to the expected time.
+
+21) Nope, the fault is I'm carrying the value of t across the cube.Step call.  Ants that
+reach the goal on step t arrive after t+1 seconds.  Fencepost error.  Much better.
