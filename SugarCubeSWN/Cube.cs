@@ -27,15 +27,17 @@ namespace SugarCubeSWN
         public int Step()
         {
             // something much fancier would be needed to generalize this for an arbitrary
-            // stochastic flow graph but for this problem I'm just goint to hardwire the flow.
+            // stochastic flow graph but for this problem I'm just going to hardwire the flow.
             // compute new values from old, then update old, keep it simple.
 
+            // the chosen RNG wrapper requires n positive, guard the calls.
             int rank0 = 0;
             if (m_node[1] > 0)
                 rank0 = MathNet.Numerics.Distributions.Binomial.Sample(m_job.m_RNG, 1.0 / 3, m_node[1]);
             int rank3 = 0;
             if (m_node[2] > 0)
                 rank3 = MathNet.Numerics.Distributions.Binomial.Sample(m_job.m_RNG, 1.0 / 3, m_node[2]);
+
             // directional flow between ranks 1 and 2 is the complement of the flows to 0 and 3.
             int rank1 = m_node[0] + m_node[2] - rank3;
             int rank2 = m_node[1] - rank0;

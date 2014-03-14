@@ -80,3 +80,16 @@ an executable from the eval?  We’ll see.  Running out of time.
 distributions and statistical functions.  But not statistical accumulators.
 http://numerics.mathdotnet.com/docs/
 
+18) OK, I feel stupid.  I thought my simulation was broken, watching it in the debugger
+it was cycling between states with only node 1 occupied and states with node 1 empty.
+But of course: at even time steps all the ants are on even-ranked vertices of the cube
+and at odd time steps they are all at odd-ranked vertices.  Corollary: the dwell times
+of all ants are odd (time to reach the terminal node at rank 3.)  My steady-state model
+obscured that fact.
+
+19) This RNG is really really slow.  Sigh.
+
+20) Also, the values I am seeing for the mean dwell time are very tightly grouped around 9,
+not 10, suggesting I have made a classic off-by-one error.  I think the fault is in the
+definition of duration; I added the external source node which added 1 to all times and
+thus to the expected time.
