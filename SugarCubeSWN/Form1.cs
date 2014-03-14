@@ -21,6 +21,11 @@ namespace SugarCubeSWN
             nMaxTimeBox.Text = "1000";
         }
 
+        private void ReportStats(Descriptives s)
+        {
+            AverageField.Text = s.Mean().ToString();
+        }
+
         private void StartButton_Click(object sender, EventArgs e)
         {
             // this should use some kind of data binding but the setup isn't obvious and this works...
@@ -29,17 +34,22 @@ namespace SugarCubeSWN
             int nMaxTime = Int32.Parse(nMaxTimeBox.Text);
             // TODO: input validation and error reporting
 
-            System.Action OnCompletion = () =>
-            {
-                StartButton.Enabled = true;
-                StopButton.Enabled = false;
-            };
-            var myJob = new Job(nAnts, nCubes, nMaxTime, OnCompletion);
+            var myJob = new Job(nAnts, nCubes, nMaxTime,
+                (Descriptives s) =>
+                {
+                    if (s != null)
+                        ReportStats(s);
+                    StartButton.Enabled = true;
+                    StopButton.Enabled = false;
+                }
+            );
+            AverageField.Text = "";
             StartButton.Enabled = false;
             // StopButton.Enabled = true; Stop not yet implemented so don't enable yet.
             
             // TODO: pass job to worker thread ...
             myJob.Run();
         }
+
     }
 }

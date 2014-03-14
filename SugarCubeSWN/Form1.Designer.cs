@@ -36,6 +36,8 @@
             this.nMaxTimeBox = new System.Windows.Forms.TextBox();
             this.StartButton = new System.Windows.Forms.Button();
             this.StopButton = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.AverageField = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -108,11 +110,31 @@
             this.StopButton.Text = "Stop";
             this.StopButton.UseVisualStyleBackColor = true;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(174, 161);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(150, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Average time (mean of means)";
+            // 
+            // label5
+            // 
+            this.AverageField.AutoSize = true;
+            this.AverageField.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AverageField.Location = new System.Drawing.Point(216, 192);
+            this.AverageField.Name = "label5";
+            this.AverageField.Size = new System.Drawing.Size(0, 25);
+            this.AverageField.TabIndex = 9;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(777, 594);
+            this.Controls.Add(this.AverageField);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.StopButton);
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.nMaxTimeBox);
@@ -138,6 +160,8 @@
         private System.Windows.Forms.TextBox nMaxTimeBox;
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.Button StopButton;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label AverageField;
     }
 }
 

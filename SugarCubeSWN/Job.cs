@@ -15,12 +15,13 @@ namespace SugarCubeSWN
         int m_nAnts;
         int m_nCubes;
         int m_nMaxTime;
-        System.Action m_OnCompletion; // will be called on the worker thread, is that OK?
+        public delegate void StatsCallback(Descriptives s);
+        StatsCallback m_OnCompletion; // will be called on the worker thread, is that OK?
 
-        Descriptives m_summarystats; // note AddSample isn't threadsafe.  collects mean-of-means.
+        internal Descriptives m_summarystats; // note AddSample isn't threadsafe.  collects mean-of-means.
         public System.Random m_RNG; // see http://numerics.mathdotnet.com/docs/Random.html
 
-        public Job(int nAnts, int nCubes, int nMaxTime, System.Action dOnCompletion)
+        public Job(int nAnts, int nCubes, int nMaxTime, StatsCallback dOnCompletion)
         {
             // I don't really like Hungarian notation but it's become a habit from sheer repetition.
             m_nAnts = nAnts;
@@ -52,7 +53,7 @@ namespace SugarCubeSWN
             }
 
             if (m_OnCompletion != null)
-                m_OnCompletion();
+                m_OnCompletion(m_summarystats);
         }
     }
 }
